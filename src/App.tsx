@@ -20,6 +20,8 @@ import FlashMessage from "react-native-flash-message";
 
 import Login from './pages/auth/Login/Login';
 import Sign from './pages/auth/Sign/Sign';
+import Messages from './pages/Messages';
+import colors from './styles/colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,9 +37,13 @@ function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator >
+        <Stack.Screen
+          name='MessagesScreen'
+          component={Messages}
+          options={{ title: 'dertler', headerTintColor: colors.darkgreen }}
+        />
         <Stack.Screen name='AuthStack' component={AuthStack} />
-        {/* <Stack.Screen name='SignPage' component={Sign} /> */}
       </Stack.Navigator>
       <FlashMessage position="top" />
     </NavigationContainer>
