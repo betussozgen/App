@@ -12,9 +12,12 @@ export default StyleSheet.create({
         borderTopRightRadius: 10,
         height: deviceSize.height / 3,
     },
+    input_container: {
+        flex: 1,
+    },
     modal: {
         justifyContent: 'flex-end',
-        padding: 0,
+        margin: 0,
 
     }
 
