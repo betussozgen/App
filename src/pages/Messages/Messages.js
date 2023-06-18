@@ -21,7 +21,7 @@ const Message = () => {
     return (
         <SafeAreaView style={styles.container}>
             <Text>deneme</Text>
-            <FloatingButton icon='plus' onPress={() => { handleInputToggle }} />
+            <FloatingButton icon="plus" onPress={() => { handleInputToggle }} />
 
             <ContentInputModal
                 visible={inputModalVisible}

@@ -5,10 +5,13 @@ import colors from '../../styles/colors';
 
 export default StyleSheet.create({
     container: {
+        // flex: 1,
         position: 'absolute',
-        bottom: 20,
-        right: 20,
-        borderRadius: 50,
+        // bottom: 50,
+        right: 30,
+        // left: 60,
+        top: 600,
+        borderRadius: 60,
         width: 60,
         height: 60,
         alignItems: 'center',

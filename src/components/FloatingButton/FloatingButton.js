@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './FloatingButton.style';
 
