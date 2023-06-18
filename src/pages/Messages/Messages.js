@@ -1,14 +1,28 @@
 import React from "react";
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 import FloatingButton from "../../components/FloatingButton";
 
 import styles from './Messages.style';
 import ContentInputModal from "../../components/modal/ContentInputModal";
 
+import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
+
 
 const Message = () => {
 
     const [inputModalVisible, setInputModalVisible] = React.useState(false);
+    const [contentList, setContentList] = React.useState([]);
+
+    React.useEffect(() => {
+        database()
+            .ref('messages/')
+            .on('value', snapshot => {
+                const contentData = snapshot.val();
+                console.log(contentData);
+            })
+    })
+
 
     function handleInputToggle() {
         setInputModalVisible(!inputModalVisible);
@@ -17,12 +31,33 @@ const Message = () => {
 
     //İçerik göndermek istediğimizde
     function handleSendContent(content) {
-        console.log(content);
 
+        handleInputToggle();
+        sendContent(content);
+
+    }
+
+    function sendContent(content) {
+
+        const userMail = auth().currentUser.email;
+
+        const contentObject = {
+            text: content,
+            username: userMail.split('@')[0],
+            date: (new Date()).toISOString(),
+
+        }
+        // console.log(contentObject)
+        database().ref('messages/').push(contentObject);
     }
 
     return (
         <SafeAreaView style={styles.container}>
+
+            <FlatList
+
+
+            />
             <FloatingButton icon="plus" onPress={handleInputToggle} />
 
             <ContentInputModal
