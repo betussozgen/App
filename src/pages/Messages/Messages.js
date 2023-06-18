@@ -1,12 +1,15 @@
 import React from "react";
 import { SafeAreaView, FlatList } from 'react-native';
 import FloatingButton from "../../components/FloatingButton";
+import MessageCard from "../../components/card/MessageCard";
+
 
 import styles from './Messages.style';
 import ContentInputModal from "../../components/modal/ContentInputModal";
 
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
+import parseContentData from "../../utils/parseContentData";
 
 
 const Message = () => {
@@ -19,7 +22,12 @@ const Message = () => {
             .ref('messages/')
             .on('value', snapshot => {
                 const contentData = snapshot.val();
-                console.log(contentData);
+                if (!contentData) {
+                    return;
+                }
+                // console.log(contentData);
+                const parsedData = parseContentData(contentData);
+                setContentList(parsedData);
             })
     })
 
@@ -51,11 +59,14 @@ const Message = () => {
         database().ref('messages/').push(contentObject);
     }
 
+    const renderContent = ({ item }) => <MessageCard message={item} />
+
     return (
         <SafeAreaView style={styles.container}>
 
             <FlatList
-
+                data={contentList}
+                renderItem={renderContent}
 
             />
             <FloatingButton icon="plus" onPress={handleInputToggle} />
