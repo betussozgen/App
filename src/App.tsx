@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   Button,
@@ -23,9 +23,20 @@ import Sign from './pages/auth/Sign/Sign';
 import Messages from './pages/Messages';
 import colors from './styles/colors';
 
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const Stack = createNativeStackNavigator();
 
 function App() {
+
+  const [userSession, setUserSession] = useState();
+
+  useEffect(() => {
+    auth().onAuthStateChanged(user => {
+      setUserSession(!!user);
+    })
+  }, [])
+
   const AuthStack = () => {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -37,14 +48,30 @@ function App() {
   }
   return (
     <NavigationContainer>
-      <Stack.Navigator >
-        <Stack.Screen
-          name='MessagesScreen'
-          component={Messages}
-          options={{ title: 'dertler', headerTintColor: colors.darkgreen }}
-        />
-        <Stack.Screen name='AuthStack' component={AuthStack} />
-      </Stack.Navigator>
+
+      {!userSession ? (
+        // <Stack.Screen
+        //   name='AuthStack'
+        //   component={AuthStack}
+        //   options={{ headerShown: false }} />
+        // {AuthStack()}
+        <AuthStack />
+      ) : (
+        <Stack.Navigator >
+          <Stack.Screen
+            name='MessagesScreen'
+            component={Messages}
+            options={{
+              title: 'dertler', headerTintColor: colors.darkgreen, headerRight: () => (<Icon
+                name="logout"
+                size={30}
+                color={colors.darkgreen}
+                onPress={() => auth().signOut()} />
+              ),
+            }}
+          />
+        </Stack.Navigator>
+      )}
       <FlashMessage position="top" />
     </NavigationContainer>
   );
