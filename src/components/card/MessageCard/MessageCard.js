@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import styles from './MessageCard.style';
 
 import { tr } from 'date-fns/locale'
 import { formatDistance, parseISO } from 'date-fns';
 
-const MessageCard = ({ message }) => {
+const MessageCard = ({ message, onBanane }) => {
 
     const formattedDate = formatDistance(parseISO(message.date), new Date(), {
         addSuffix: true,
@@ -21,6 +21,16 @@ const MessageCard = ({ message }) => {
                 <Text style={styles.date}>{formattedDate}</Text>
             </View>
             <Text style={styles.title}>{message.text}</Text>
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.dislike_container} onPress={onBanane}>
+                    {!!message.dislike && (
+                        <View style={styles.dislike_count_container}>
+                            <Text style={styles.dislike_count_text}>{message.dislike}</Text>
+                        </View>
+                    )}
+                    <Text style={styles.dislike_text}>bana ne?</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

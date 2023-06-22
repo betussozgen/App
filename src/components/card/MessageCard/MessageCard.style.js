@@ -30,4 +30,29 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
     },
+    dislike_count_container: {
+        backgroundColor: colors.darkgreen,
+        padding: 3,
+        borderRadius: 20,
+        marginRight: 3,
+    },
+    dislike_container: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        padding: 3,
+        paddingHorizontal: 10,
+        borderRadius: 20,
+        alignItems: 'center',
+    },
+    dislike_text: {
+        color: colors.darkgreen,
+        fontWeight: 'bold',
+    },
+    dislike_count_text: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    footer: {
+        alignItems: 'flex-end',
+    },
 })

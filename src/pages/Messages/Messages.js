@@ -22,11 +22,12 @@ const Message = () => {
             .ref('messages/')
             .on('value', snapshot => {
                 const contentData = snapshot.val();
-                if (!contentData) {
-                    return;
-                }
+                // if (!contentData) {
+                //     return;
+                // }
                 // console.log(contentData);
-                const parsedData = parseContentData(contentData);
+                //nulla düşmemesi için
+                const parsedData = parseContentData(contentData || {});
                 setContentList(parsedData);
             })
     })
@@ -53,13 +54,19 @@ const Message = () => {
             text: content,
             username: userMail.split('@')[0],
             date: (new Date()).toISOString(),
+            dislike: 0,
 
         }
         // console.log(contentObject)
         database().ref('messages/').push(contentObject);
     }
+    function handleBanane(item) {
+        database()
+            .ref(`messages/${item.id}/`)
+            .update({ dislike: item.dislike + 1 });
+    }
 
-    const renderContent = ({ item }) => <MessageCard message={item} />
+    const renderContent = ({ item }) => <MessageCard message={item} onBanane={() => handleBanane(item)} />
 
     return (
         <SafeAreaView style={styles.container}>
