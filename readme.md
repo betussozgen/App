@@ -1,6 +1,6 @@
 ## Banan ne?
 
-Chat uygulamaı
+Chat uygulaması
 
 # İçindekiler:
 
